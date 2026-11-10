@@ -1,3 +1,0 @@
-accessing
-pushStackButton
-	self pushStackButtonNamed: self editorPanel circuit fullyQualifiedName
