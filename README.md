@@ -4,6 +4,26 @@
 
 **EPIC: Program for Integrated Circuits** is a tool that allows the user to create, edit, simulate and export digital circuits.
 
+<img src="img/screenshot-half-adder.png" width="900"
+  alt="A half adder in EPIC: two switches feed an XOR and an AND gate, one input is on and the sum lamp is lit">
+
+<details>
+<summary>More screenshots</summary>
+
+The same half adder with ANSI gate symbols and both inputs on:
+
+<img src="img/screenshot-ansi-style.png" width="900"
+  alt="The half adder drawn with ANSI gate symbols, with the carry lamp lit">
+
+A hex keyboard driving a seven segment display through a converter:
+
+<img src="img/screenshot-hex-display.png" width="900"
+  alt="A hex keyboard connected through a converter to a seven segment display showing 5">
+
+</details>
+
+The screenshots are generated with `make screenshots`.
+
 ## Getting started
 
 To start using EPIC, you can either download the EPIC stand alone image from our [latest release](https://github.com/hpi-swa-teaching/EPIC-Digitalsimulator/releases/latest), or install it manually into your own Squeak image.

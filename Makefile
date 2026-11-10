@@ -75,6 +75,19 @@ test: $(IMAGE) ## Run the EPIC tests headlessly (at SCALE_PERCENT)
 	@test "$$(tail -n 1 $(SQUEAK_DIR)/test-results.txt)" = PASSED
 
 
+.PHONY: screenshots
+screenshots: $(IMAGE) ## Render the README screenshots into img/
+	cp $(IMAGE) $(SQUEAK_DIR)/screenshots.image
+	cp $(SQUEAK_DIR)/epic.changes $(SQUEAK_DIR)/screenshots.changes
+	rm -f $(SQUEAK_DIR)/screenshots-error.txt
+	cd $(SQUEAK_DIR) && $(SQUEAK_VM) -headless screenshots.image \
+		$(CURDIR)/scripts/screenshots.st $(CURDIR)/img $(SCALE_PERCENT)
+	rm -f $(SQUEAK_DIR)/screenshots.image $(SQUEAK_DIR)/screenshots.changes
+	@if test -f $(SQUEAK_DIR)/screenshots-error.txt; then \
+		cat $(SQUEAK_DIR)/screenshots-error.txt; exit 1; \
+	fi
+
+
 # The bundle is staged outside the repo, because file syncing services
 # (e.g. Dropbox) keep adding extended attributes, which break code signing.
 build/EPIC.app: $(IMAGE) scripts/lockdown.st
