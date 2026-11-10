@@ -1,6 +1,6 @@
 # EPIC-Digitalsimulator
 
-[![Build Status](https://travis-ci.org/hpi-swa-teaching/EPIC-Digitalsimulator.svg?branch=developer)](https://travis-ci.org/hpi-swa-teaching/EPIC-Digitalsimulator)
+[![CI](https://github.com/ad-si/EPIC-Digitalsimulator/actions/workflows/ci.yml/badge.svg)](https://github.com/ad-si/EPIC-Digitalsimulator/actions/workflows/ci.yml)
 
 **EPIC: Program for Integrated Circuits** is a tool that allows the user to create, edit, simulate and export digital circuits.
 
@@ -47,6 +47,13 @@ In detail this will…
 - prevent panning inside the Squeak window
 - suppresses error messages and writes them to the `SqueakDebug.log` logfile in the Resources directory instead (configurable via flags)
 - make it possible to reduce app size by allowing to delete `*.changes` and `*.sources` files without problems
+
+### as a stand-alone macOS app:
+
+Run `make app` (see `make help` for all targets).
+This downloads Squeak, loads EPIC, locks it down,
+and writes `build/EPIC.app` and `build/EPIC.zip`.
+The UI scale is fixed at build time via `SCALE_PERCENT` (default: 200).
 
 ### without saving the image:
 

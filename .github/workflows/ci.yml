@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    # The Makefile downloads the macOS ARMv8 build of Squeak
+    runs-on: macos-latest
+    env:
+      SQUEAK_DIR: ${{ github.workspace }}/../squeak-epic
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Squeak VM
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.SQUEAK_DIR }}/*.app
+          key: squeak-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Makefile') }}
+
+      - name: Build image
+        run: make image
+
+      - name: Run tests
+        run: make test
+
+      - name: Build app
+        run: make app
+
+      - name: Upload app
+        uses: actions/upload-artifact@v4
+        with:
+          name: EPIC
+          path: build/EPIC.zip
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: squeak-logs
+          path: |
+            ${{ env.SQUEAK_DIR }}/load-error.txt
+            ${{ env.SQUEAK_DIR }}/test-results.txt
+            ${{ env.SQUEAK_DIR }}/lockdown-error.txt
+          if-no-files-found: ignore

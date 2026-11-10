@@ -9,6 +9,10 @@ SQUEAK_VM := $(SQUEAK_APP)/Contents/MacOS/Squeak
 SQUEAK_RES := $(SQUEAK_APP)/Contents/Resources
 IMAGE := $(SQUEAK_DIR)/epic.image
 
+APP_STAGE := $(SQUEAK_DIR)/EPIC.app
+APP_RES := $(APP_STAGE)/Contents/Resources
+APP_PLIST := $(APP_STAGE)/Contents/Info.plist
+
 # UI scale factor in percent (same as Squeak's "Extras > Scale factor" menu)
 SCALE_PERCENT ?= 200
 
@@ -71,6 +75,41 @@ test: $(IMAGE) ## Run the EPIC tests headlessly (at SCALE_PERCENT)
 	@test "$$(tail -n 1 $(SQUEAK_DIR)/test-results.txt)" = PASSED
 
 
+# The bundle is staged outside the repo, because file syncing services
+# (e.g. Dropbox) keep adding extended attributes, which break code signing.
+build/EPIC.app: $(IMAGE) scripts/lockdown.st
+	rm -rf $(APP_STAGE) $@ build/EPIC.zip
+	cp -R $(SQUEAK_APP) $(APP_STAGE)
+	rm -f $(APP_RES)/$(SQUEAK_BUILD).image $(APP_RES)/$(SQUEAK_BUILD).changes \
+		$(APP_RES)/SqueakDebug.log
+	cp $(IMAGE) $(APP_RES)/EPIC.image
+	cp $(SQUEAK_DIR)/epic.changes $(APP_RES)/EPIC.changes
+	cp -R epic-resources $(APP_RES)/
+	mkdir -p $(APP_RES)/epic
+	plutil -replace SqueakImageName -string EPIC.image $(APP_PLIST)
+	plutil -replace CFBundleName -string EPIC $(APP_PLIST)
+	plutil -replace CFBundleIdentifier -string org.hpi-swa.epic $(APP_PLIST)
+	plutil -replace CFBundleGetInfoString -string EPIC $(APP_PLIST)
+	@# macOS kills the VM if the edited bundle isn't re-signed
+	xattr -cr $(APP_STAGE)
+	codesign --force --deep --sign - $(APP_STAGE)
+	cd $(APP_RES) && ../MacOS/Squeak -headless EPIC.image \
+		$(CURDIR)/scripts/lockdown.st $(SCALE_PERCENT)
+	@if test -f $(APP_RES)/lockdown-error.txt; then \
+		cp $(APP_RES)/lockdown-error.txt $(SQUEAK_DIR)/; \
+		cat $(SQUEAK_DIR)/lockdown-error.txt; rm -rf $(APP_STAGE); exit 1; \
+	fi
+	xattr -cr $(APP_STAGE)
+	codesign --force --deep --sign - $(APP_STAGE)
+	mkdir -p build
+	ditto -c -k --keepParent $(APP_STAGE) build/EPIC.zip
+	ditto $(APP_STAGE) $@
+
+
+.PHONY: app
+app: build/EPIC.app ## Build a locked-down stand-alone EPIC.app and EPIC.zip
+
+
 .PHONY: clean
-clean: ## Remove the built image (keeps the Squeak download)
-	rm -f $(IMAGE) $(SQUEAK_DIR)/epic.changes
+clean: ## Remove the built image and app (keeps the Squeak download)
+	rm -rf $(IMAGE) $(SQUEAK_DIR)/epic.changes $(APP_STAGE) build
