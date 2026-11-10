@@ -9,5 +9,5 @@ createConfigurationPanel
 		listCentering: #topLeft;
 		cellPositioning: #topLeft;
 		listDirection: #topToBottom;
-		hResizing: #fillSpace;
-		vResizing: #fillSpace
+		hResizing: #spaceFill;
+		vResizing: #spaceFill
