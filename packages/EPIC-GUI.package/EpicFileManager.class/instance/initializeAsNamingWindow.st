@@ -1,4 +1,0 @@
-initialization
-initializeAsNamingWindow
-	self initializeBasicParameters.
-	self createSaveWindowUI.
