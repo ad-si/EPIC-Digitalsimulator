@@ -7,4 +7,4 @@ connectSelectorPortsOn: aCanvas
 		aCanvas
 			line: eachPort center
 			to: (eachPort center x) @ (self gateBoxANSI bottom + (self gateBoxANSI extent y / 3 * xyratio) rounded)
-			color: Color black]
+			width: self lineWidth color: Color black]

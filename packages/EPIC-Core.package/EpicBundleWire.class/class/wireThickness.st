@@ -1,3 +1,3 @@
 drawing
 wireThickness
-	^4
+	^ 4 px

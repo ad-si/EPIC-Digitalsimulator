@@ -2,4 +2,4 @@ drawing
 drawBoxOn: aCanvas
 	aCanvas 
 		fillRectangle: self bounds color: self fillColor;
-		frameRectangle: self bounds color: Color black.
+		frameRectangle: self bounds width: self lineWidth color: Color black.

@@ -1,7 +1,7 @@
 layout
 relayout
 	| innerBounds |
-	innerBounds := self bounds insetBy: 6.
+	innerBounds := self bounds insetBy: 6 px.
 	self circuit 
 		layoutPorts: self circuit innerInputPorts 
 		onLineFrom: innerBounds topLeft to: innerBounds bottomLeft;

@@ -4,6 +4,6 @@ putAt: aPosition with: label and: value
 	instance := self new.
 	instance label: label.
 	instance value: value.
-	instance extent:  (20@20).
+	instance extent: EpicHexKeyboard keyWidth asPoint.
 	instance center: aPosition.
 	^instance 

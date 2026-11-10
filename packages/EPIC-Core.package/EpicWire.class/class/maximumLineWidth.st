@@ -1,3 +1,3 @@
 magic numbers
 maximumLineWidth
-	^ 6
+	^ 6 px

@@ -1,4 +1,4 @@
 magic numbers
 gateSize
 
-	^60@80
+	^ 60 px @ 80 px

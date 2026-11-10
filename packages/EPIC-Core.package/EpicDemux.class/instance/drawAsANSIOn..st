@@ -16,7 +16,7 @@ drawAsANSIOn: aCanvas
 		aCanvas 
 			line: eachPort center 
 			to: (self gateBoxANSI right) @ (eachPort center y)
-			color: Color black].
+			width: self lineWidth color: Color black].
 	
 	self 
 		drawBodyOn: aCanvas;
@@ -25,4 +25,4 @@ drawAsANSIOn: aCanvas
 	aCanvas 
 		line: self inputPorts first center 
 		to: (self gateBoxANSI left) @ (self inputPorts first center y)
-		color: Color black
+		width: self lineWidth color: Color black

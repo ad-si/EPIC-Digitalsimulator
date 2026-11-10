@@ -6,8 +6,10 @@
 		"help" : "eg 6/9/2016 12:02",
 		"reset" : "ek 6/13/2016 20:47",
 		"resourceFilePath" : "tb 6/16/2016 20:40",
+		"scalePoint:" : "as 11/10/2026 12:00",
 		"startProgram" : "ek 6/13/2016 20:47",
 		"startProgramInMorph" : "lk 6/25/2014 14:29",
-		"translateCircuitNameToFileName:" : "js 5/8/2014 16:11" },
+		"translateCircuitNameToFileName:" : "js 5/8/2014 16:11",
+		"unscalePoint:" : "as 11/10/2026 12:00" },
 	"instance" : {
 		 } }

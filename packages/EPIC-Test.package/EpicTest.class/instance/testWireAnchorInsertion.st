@@ -15,4 +15,4 @@ testWireAnchorInsertion
 	self
 		assert: (drawAnchorPoints size = 2);
 		assert: (((drawAnchorPoints at: 1) at: 3)  = (1@1));
-		assert: (((drawAnchorPoints at: 2) at: 3) = (5@5)).
+		assert: (((drawAnchorPoints at: 2) at: 3) = wire endPoint).

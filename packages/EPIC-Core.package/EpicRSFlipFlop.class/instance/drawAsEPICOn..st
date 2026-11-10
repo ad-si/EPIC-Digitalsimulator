@@ -2,4 +2,4 @@ drawing
 drawAsEPICOn: aCanvas
 	
 	self drawBoxOn: aCanvas.
-	aCanvas drawString: 'RS' at: self center - (17@8)
+	self drawString: 'RS' centeredAt: self center on: aCanvas

@@ -1,3 +1,3 @@
 drawing
 lineWidthIncrease 
-	^2
+	^ 2 px

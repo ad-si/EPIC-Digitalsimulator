@@ -1,3 +1,3 @@
 magic numbers
 lineWidthIncrease 
-	^ 2
+	^ 2 px

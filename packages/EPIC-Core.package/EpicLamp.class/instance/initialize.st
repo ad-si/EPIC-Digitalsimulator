@@ -2,4 +2,4 @@ initialization
 initialize
 	super initialize.
 	self powered: false;
-		extent: 40@40
+		extent: 40 px @ 40 px

@@ -1,4 +1,4 @@
 as yet unclassified
 bigHorizontalOffset
 
-	^-12
+	^ 12 px negated

@@ -1,3 +1,3 @@
 geometry
 gateBoxDIN
-	^ self bounds insetBy: 20@2
+	^ self bounds insetBy: 20 px @ 2 px

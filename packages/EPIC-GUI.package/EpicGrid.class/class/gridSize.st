@@ -1,3 +1,3 @@
 magic numbers
 gridSize
-	^ 30
+	^ 30 px

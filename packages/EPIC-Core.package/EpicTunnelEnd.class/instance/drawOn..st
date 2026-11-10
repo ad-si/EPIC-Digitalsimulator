@@ -2,7 +2,7 @@ drawing
 drawOn: aCanvas
 	
 	aCanvas fillRectangle:  self bounds color: self fillColor.
-	aCanvas frameRectangle:  self bounds color: Color black.
+	aCanvas frameRectangle:  self bounds width: self lineWidth color: Color black.
 	
-	aCanvas drawString: 'TE' at: self center - (17@8)
+	self drawString: 'TE' centeredAt: self center on: aCanvas
 	

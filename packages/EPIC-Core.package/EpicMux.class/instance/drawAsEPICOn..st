@@ -2,4 +2,4 @@ drawing
 drawAsEPICOn: aCanvas
 	
 	self drawBoxOn: aCanvas.
-	aCanvas drawString: 'MUX' at: self center - (17@8).	
+	self drawString: 'MUX' centeredAt: self center on: aCanvas.	

@@ -1,3 +1,3 @@
 magic numbers
 circleDiameter
-	^8
+	^ 8 px

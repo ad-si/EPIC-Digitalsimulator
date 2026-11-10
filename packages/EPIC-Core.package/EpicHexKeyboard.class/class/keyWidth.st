@@ -1,4 +1,4 @@
 as yet unclassified
 keyWidth
 
-	^20
+	^ 20 px

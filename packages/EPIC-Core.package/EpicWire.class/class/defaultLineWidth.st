@@ -1,3 +1,3 @@
 magic numbers
 defaultLineWidth
-	^ 2
+	^ 2 px

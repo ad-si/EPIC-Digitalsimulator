@@ -4,4 +4,4 @@ parsePosition: anXMLElement
 	x := (anXMLElement attributeAt: 'x') asInteger.
 	y := (anXMLElement attributeAt: 'y') asInteger.
 	
-	^ x @ y
+	^ EPIC scalePoint: x @ y

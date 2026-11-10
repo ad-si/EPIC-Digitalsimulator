@@ -1,12 +1,13 @@
 serialization
 componentAsXMLElement: aComponent
-	| component |
+	| component position |
 	component := XMLElement named: 'component'.
-	
-	component attributes 
+	position := EPIC unscalePoint: aComponent position - self circuit innerOrigin.
+
+	component attributes
 		at: 'name' put: (self componentIDFor: aComponent);
 		at: 'type' put: (aComponent fullyQualifiedName);
-		at: 'x' put: (aComponent position - self circuit innerOrigin) x asString;
-		at: 'y' put: (aComponent position - self circuit innerOrigin) y asString.
+		at: 'x' put: position x asString;
+		at: 'y' put: position y asString.
 			
 	^ component

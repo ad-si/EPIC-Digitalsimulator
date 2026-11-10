@@ -1,7 +1,7 @@
 drawing
 drawOn: aCanvas
 	aCanvas fillRectangle:  self bounds color: self fillColor.
-	aCanvas frameRectangle:  self bounds color: Color black.
+	aCanvas frameRectangle: self bounds width: 1 px color: Color black.
 	"aCanvas drawString: self portname at: self center - (50@7)."
 	"visuellerKabelStummelHack"
 	"aCanvas clipBy: self bounds during: 

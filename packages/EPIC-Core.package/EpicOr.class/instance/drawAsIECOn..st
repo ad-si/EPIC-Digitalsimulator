@@ -3,7 +3,7 @@ drawAsIECOn: aCanvas
 
 	aCanvas 
 		fillRectangle: self gateBoxIEC color: self fillColor;
-		frameRectangle: self gateBoxIEC color: Color black.
-	aCanvas drawString: '>=1' at: self gateBoxIEC center - (13 @ 8).
+		frameRectangle: self gateBoxIEC width: self lineWidth color: Color black.
+	self drawString: '>=1' centeredAt: self gateBoxIEC center on: aCanvas.
 	self drawIECInputPortsOn: aCanvas.
 	self drawIECOutputPortsOn: aCanvas

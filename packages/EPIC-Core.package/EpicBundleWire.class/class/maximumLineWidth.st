@@ -1,3 +1,3 @@
 drawing
 maximumLineWidth
-	^ 8
+	^ 8 px

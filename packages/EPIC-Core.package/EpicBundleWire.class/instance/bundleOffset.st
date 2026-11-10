@@ -1,4 +1,4 @@
 drawing
 bundleOffset 
 
-	^15
+	^ 15 px

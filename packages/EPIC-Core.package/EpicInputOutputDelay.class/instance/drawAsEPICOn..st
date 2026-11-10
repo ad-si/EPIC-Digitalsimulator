@@ -2,5 +2,5 @@ drawing
 drawAsEPICOn: aCanvas
 	
 	self drawBoxOn: aCanvas.
-	aCanvas drawString: 'WAIT' at: self center - (17 @ 8).	
+	self drawString: 'WAIT' centeredAt: self center on: aCanvas.	
 	

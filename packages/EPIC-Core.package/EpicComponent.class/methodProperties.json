@@ -5,6 +5,10 @@
 		"transparency" : "sv 6/4/2010 16:52:50.447" },
 	"instance" : {
 		"activate" : "tb 6/13/2010 22:46:06.481",
+		"defaultBounds" : "as 11/10/2026 12:00",
+		"drawLines:centeredAt:on:" : "as 11/10/2026 12:00",
+		"drawString:centeredAt:on:" : "as 11/10/2026 12:00",
+		"lineWidth" : "as 11/10/2026 12:00",
 		"addComponentItemTo:" : "tb 6/25/2016 18:43",
 		"addDimensionsTo:" : "tb 7/3/2016 02:37",
 		"addHelpItemTo:" : "tb 6/25/2016 18:43",

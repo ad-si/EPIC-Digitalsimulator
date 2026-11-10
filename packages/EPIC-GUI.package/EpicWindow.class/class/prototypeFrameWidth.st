@@ -1,4 +1,4 @@
 magic numbers
 prototypeFrameWidth
-	"Width for the PrototypeFrame. The additional 11px are needed in order to display the scroll bar."
-	^ EpicPrototypePanel panelWidth + 11
+	"Width for the PrototypeFrame, including the scroll bar and its border."
+	^ EpicPrototypePanel panelWidth + ScrollPane scrollBarThickness + 1 px

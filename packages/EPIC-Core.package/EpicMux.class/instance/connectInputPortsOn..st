@@ -5,4 +5,4 @@ connectInputPortsOn: aCanvas
 		aCanvas 
 			line: eachPort center 
 			to: (self gateBoxANSI left) @ (eachPort center y)
-			color: Color black]
+			width: self lineWidth color: Color black]

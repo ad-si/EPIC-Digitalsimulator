@@ -65,6 +65,7 @@
 		"testWireRemove" : "f.z 6/11/2010 19:03:00.257",
 		"testWireRemoveValuePropagation" : "f.z 6/11/2010 19:32:07.414",
 		"testWireSegments" : "f.z 6/28/2010 21:45:20.534",
+		"testSerializedPositionsAreUnscaled" : "as 11/10/2026 12:00",
 		"testXMLRoundTrip" : "f.z 7/23/2010 13:47:09.505",
 		"testXnor" : "f.z 6/11/2010 11:39:24.242",
 		"testXor" : "f.z 6/11/2010 11:39:43.841",

@@ -1,3 +1,3 @@
 magic numbers
 panelWidth
-	^ 275
+	^ 275 px

@@ -1,3 +1,3 @@
 accessing
 lineWidth
-	^ 1
+	^ 1 px

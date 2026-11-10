@@ -4,5 +4,5 @@ drawPolyLine: aCollectionOfPoints on: aCanvas
 		aCanvas 
 			line: startPoint
 			to: endPoint
-			color: Color black
+			width: self lineWidth color: Color black
 	]

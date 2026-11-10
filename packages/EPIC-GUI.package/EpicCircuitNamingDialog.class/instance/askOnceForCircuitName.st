@@ -7,4 +7,4 @@ askOnceForCircuitName
 		cursorPoint inWorld: ActiveWorld
 		onCancelReturn: nil
 		acceptOnCR: true
-		answerHeight: 25
+		answerHeight: 25 px

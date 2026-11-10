@@ -1,3 +1,3 @@
 magic numbers
 horizontalExtent
-	^ (25@6)
+	^ 25 px @ 6 px

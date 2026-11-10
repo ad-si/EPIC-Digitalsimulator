@@ -1,3 +1,3 @@
 magic numbers
 labelMargin
-	^ 5
+	^ 5 px

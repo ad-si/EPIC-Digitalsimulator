@@ -1,3 +1,3 @@
 magic numbers
 portSize
-	^ 10@10
+	^ 10 px @ 10 px

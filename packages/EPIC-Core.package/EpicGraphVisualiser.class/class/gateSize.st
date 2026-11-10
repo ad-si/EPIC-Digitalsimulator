@@ -1,3 +1,3 @@
 initialize
 gateSize
-	^120@40
+	^ 120 px @ 40 px

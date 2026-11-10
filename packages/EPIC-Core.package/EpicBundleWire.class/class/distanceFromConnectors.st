@@ -1,3 +1,3 @@
 drawing
 distanceFromConnectors
-	^10
+	^ 10 px

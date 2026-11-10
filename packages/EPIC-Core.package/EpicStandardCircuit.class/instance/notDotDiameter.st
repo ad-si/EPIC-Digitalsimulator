@@ -1,3 +1,3 @@
 geometry
 notDotDiameter
-	^ 8
+	^ 8 px

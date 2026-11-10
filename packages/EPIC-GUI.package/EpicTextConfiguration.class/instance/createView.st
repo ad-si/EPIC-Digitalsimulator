@@ -4,11 +4,11 @@ createView
 	textMorph := PluggableTextMorph on: self text: #targetValue accept: #targetValue:.
 	textMorph
 		acceptOnCR: true;
-		height: (TextStyle defaultFont height + 6);
+		height: (TextStyle defaultFont height + 6 px);
 		vResizing: #rigid;
 		hResizing: #shrinkWrap;
-		minimumWidth: 10;
-		layoutInset: -15.
+		minimumWidth: 10 px;
+		layoutInset: 15 px negated.
 	
 	self
 		addMorphBack: (StringMorph contents: self label);

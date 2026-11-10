@@ -1,3 +1,3 @@
 magic numbers
 margin
-	^ 10
+	^ 10 px

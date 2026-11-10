@@ -1,3 +1,3 @@
 drawing
 connectorLength
-	^20
+	^ 20 px

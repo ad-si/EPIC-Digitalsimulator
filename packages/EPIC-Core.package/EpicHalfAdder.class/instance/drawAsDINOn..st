@@ -3,9 +3,8 @@ drawAsDINOn: aCanvas
 
 	aCanvas 
 		fillRectangle: self gateBoxDIN color: self fillColor;
-		frameRectangle: self gateBoxDIN color: Color black.
-	aCanvas drawString: '1 N1,2' at: self gateBoxDIN center - (19 @ 14).
-	aCanvas drawString: '2 G1,2' at: self gateBoxDIN center - (19 @ -1).
+		frameRectangle: self gateBoxDIN width: self lineWidth color: Color black.
+	self drawLines: #('1 N1,2' '2 G1,2') centeredAt: self gateBoxDIN center on: aCanvas.
 	self drawDINInputPortsOn: aCanvas.
 	self drawDINOutputPortsOn: aCanvas.
 	self drawDINOutputPortsSecondOn: aCanvas

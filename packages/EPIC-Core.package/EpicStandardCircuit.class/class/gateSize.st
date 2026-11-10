@@ -1,3 +1,3 @@
 magic numbers
 gateSize
-	^60@40
+	^ 60 px @ 40 px

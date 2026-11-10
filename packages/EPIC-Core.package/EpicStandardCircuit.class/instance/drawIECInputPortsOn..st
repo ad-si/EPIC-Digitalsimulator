@@ -5,4 +5,4 @@ drawIECInputPortsOn: aCanvas
 		aCanvas 
 			line: eachPort center 
 			to: (self gateBoxIEC left) @ (eachPort center y)
-			color: Color black]
+			width: self lineWidth color: Color black]

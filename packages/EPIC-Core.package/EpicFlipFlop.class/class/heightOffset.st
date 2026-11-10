@@ -1,4 +1,4 @@
 as yet unclassified
 heightOffset
-
-	^-6
+	"Vertically center a label on its port."
+	^ (TextStyle defaultFont height // 2) negated

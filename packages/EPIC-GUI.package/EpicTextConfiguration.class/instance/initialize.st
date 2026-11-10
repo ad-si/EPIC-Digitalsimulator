@@ -4,8 +4,8 @@ initialize
 	self
 		layoutPolicy: TableLayout new;
 		beTransparent;
-		layoutInset: 10;
-		cellInset: 10;
+		layoutInset: 10 px;
+		cellInset: 10 px;
 		listCentering: #topLeft;
 		cellPositioning: #center;
 		listDirection: #leftToRight;

@@ -1,3 +1,3 @@
 magic numbers
 verticalExtent
-	^ (6@22)
+	^ 6 px @ 22 px

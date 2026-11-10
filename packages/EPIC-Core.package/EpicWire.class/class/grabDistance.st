@@ -1,3 +1,3 @@
 magic numbers
 grabDistance
-	^ 20
+	^ 20 px

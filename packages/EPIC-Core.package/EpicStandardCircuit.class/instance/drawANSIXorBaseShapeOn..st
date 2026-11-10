@@ -6,4 +6,7 @@ drawANSIXorBaseShapeOn: aCanvas
 	leftBox := Rectangle 
 				center: self gateBoxANSI leftCenter - ((self gateBoxANSI width - v ) @ 0)
 				extent: (self gateBoxANSI extent + (v@0)) * 2.
-	self frameOval: (leftBox translateBy: (-8@0)) clipBy: (self gateBoxANSI translateBy: (-8@0)) on: aCanvas.
+	self
+		frameOval: (leftBox translateBy: 8 px negated @ 0)
+		clipBy: (self gateBoxANSI translateBy: 8 px negated @ 0)
+		on: aCanvas.
