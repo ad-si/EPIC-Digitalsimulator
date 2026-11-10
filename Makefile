@@ -1,12 +1,29 @@
 SQUEAK_VERSION := 6.1
 SQUEAK_BUILD := Squeak6.1-23976-64bit
-SQUEAK_DMG := $(SQUEAK_BUILD)-202606270913-macOS-ARMv8.dmg
-SQUEAK_URL := https://files.squeak.org/$(SQUEAK_VERSION)/$(SQUEAK_BUILD)/$(SQUEAK_DMG)
+SQUEAK_RELEASE := $(SQUEAK_BUILD)-202606270913
 
 SQUEAK_DIR ?= $(HOME)/.local/share/squeak-epic
+OS_NAME := $(shell uname -s)
+
+# The image is platform independent, so it can be built and tested on Linux.
+# Building the stand-alone app (`make app`) requires macOS.
+ifeq ($(OS_NAME),Darwin)
+SQUEAK_DIST := $(SQUEAK_RELEASE)-macOS-ARMv8.dmg
 SQUEAK_APP := $(SQUEAK_DIR)/$(SQUEAK_BUILD).app
 SQUEAK_VM := $(SQUEAK_APP)/Contents/MacOS/Squeak
 SQUEAK_RES := $(SQUEAK_APP)/Contents/Resources
+SQUEAK_HEADLESS := -headless
+else
+SQUEAK_LINUX_ARCH := $(if $(filter x86_64,$(shell uname -m)),x64,ARMv8)
+SQUEAK_LINUX := $(SQUEAK_RELEASE)-Linux-$(SQUEAK_LINUX_ARCH)
+SQUEAK_DIST := $(SQUEAK_LINUX).tar.gz
+SQUEAK_VM := $(SQUEAK_DIR)/$(SQUEAK_LINUX)/bin/squeak
+SQUEAK_RES := $(SQUEAK_DIR)/$(SQUEAK_LINUX)/shared
+# -headless still loads the X11 display and PulseAudio sound modules
+SQUEAK_HEADLESS := -vm-display-null -vm-sound-null
+endif
+
+SQUEAK_URL := https://files.squeak.org/$(SQUEAK_VERSION)/$(SQUEAK_BUILD)/$(SQUEAK_DIST)
 IMAGE := $(SQUEAK_DIR)/epic.image
 
 APP_STAGE := $(SQUEAK_DIR)/EPIC.app
@@ -28,13 +45,17 @@ help: ## Show available targets
 
 $(SQUEAK_VM):
 	mkdir -p $(SQUEAK_DIR)
-	curl -fL -o $(SQUEAK_DIR)/$(SQUEAK_DMG) $(SQUEAK_URL)
+	curl -fL -o $(SQUEAK_DIR)/$(SQUEAK_DIST) $(SQUEAK_URL)
+ifeq ($(OS_NAME),Darwin)
 	set -e; \
-	mnt=$$(hdiutil attach -nobrowse -readonly $(SQUEAK_DIR)/$(SQUEAK_DMG) \
+	mnt=$$(hdiutil attach -nobrowse -readonly $(SQUEAK_DIR)/$(SQUEAK_DIST) \
 		| grep -o '/Volumes/.*' | tail -1); \
 	cp -R "$$mnt/$(SQUEAK_BUILD).app" $(SQUEAK_DIR)/; \
 	hdiutil detach "$$mnt" >/dev/null
-	rm $(SQUEAK_DIR)/$(SQUEAK_DMG)
+else
+	tar -xzf $(SQUEAK_DIR)/$(SQUEAK_DIST) -C $(SQUEAK_DIR)
+endif
+	rm $(SQUEAK_DIR)/$(SQUEAK_DIST)
 
 
 $(IMAGE): Makefile scripts/load.st $(SQUEAK_VM) $(PACKAGE_FILES) $(RESOURCE_FILES)
@@ -45,7 +66,7 @@ $(IMAGE): Makefile scripts/load.st $(SQUEAK_VM) $(PACKAGE_FILES) $(RESOURCE_FILE
 	cp -R epic-resources $(SQUEAK_DIR)/
 	mkdir -p $(SQUEAK_DIR)/epic
 	rm -f $(SQUEAK_DIR)/load-error.txt
-	cd $(SQUEAK_DIR) && $(SQUEAK_VM) -headless epic.image \
+	cd $(SQUEAK_DIR) && $(SQUEAK_VM) $(SQUEAK_HEADLESS) epic.image \
 		$(CURDIR)/scripts/load.st $(CURDIR)/packages default
 	@if test -f $(SQUEAK_DIR)/load-error.txt; then \
 		cat $(SQUEAK_DIR)/load-error.txt; rm -f $(IMAGE); exit 1; \
@@ -68,7 +89,7 @@ test: $(IMAGE) ## Run the EPIC tests headlessly (at SCALE_PERCENT)
 	cp $(IMAGE) $(SQUEAK_DIR)/test.image
 	cp $(SQUEAK_DIR)/epic.changes $(SQUEAK_DIR)/test.changes
 	rm -f $(SQUEAK_DIR)/test-results.txt
-	cd $(SQUEAK_DIR) && $(SQUEAK_VM) -headless test.image \
+	cd $(SQUEAK_DIR) && $(SQUEAK_VM) $(SQUEAK_HEADLESS) test.image \
 		$(CURDIR)/scripts/test.st $(CURDIR)/packages $(SCALE_PERCENT)
 	rm -f $(SQUEAK_DIR)/test.image $(SQUEAK_DIR)/test.changes
 	@cat $(SQUEAK_DIR)/test-results.txt; echo
@@ -80,7 +101,7 @@ screenshots: $(IMAGE) ## Render the README screenshots into img/
 	cp $(IMAGE) $(SQUEAK_DIR)/screenshots.image
 	cp $(SQUEAK_DIR)/epic.changes $(SQUEAK_DIR)/screenshots.changes
 	rm -f $(SQUEAK_DIR)/screenshots-error.txt
-	cd $(SQUEAK_DIR) && $(SQUEAK_VM) -headless screenshots.image \
+	cd $(SQUEAK_DIR) && $(SQUEAK_VM) $(SQUEAK_HEADLESS) screenshots.image \
 		$(CURDIR)/scripts/screenshots.st $(CURDIR)/img $(SCALE_PERCENT)
 	rm -f $(SQUEAK_DIR)/screenshots.image $(SQUEAK_DIR)/screenshots.changes
 	@if test -f $(SQUEAK_DIR)/screenshots-error.txt; then \

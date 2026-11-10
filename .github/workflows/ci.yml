@@ -7,8 +7,13 @@ on:
 
 jobs:
   test:
-    # The Makefile downloads the macOS ARMv8 build of Squeak
-    runs-on: macos-latest
+    strategy:
+      # Don't cancel the Linux run when macOS runners are unavailable
+      fail-fast: false
+      matrix:
+        # The Makefile downloads the macOS ARMv8 / Linux x64 builds of Squeak
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     env:
       SQUEAK_DIR: ${{ github.workspace }}/../squeak-epic
     steps:
@@ -17,7 +22,7 @@ jobs:
       - name: Cache Squeak VM
         uses: actions/cache@v4
         with:
-          path: ${{ env.SQUEAK_DIR }}/*.app
+          path: ${{ env.SQUEAK_DIR }}/Squeak*
           key: squeak-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Makefile') }}
 
       - name: Build image
@@ -26,10 +31,13 @@ jobs:
       - name: Run tests
         run: make test
 
+      # The app bundle needs macOS tools (hdiutil, plutil, codesign, ditto)
       - name: Build app
+        if: runner.os == 'macOS'
         run: make app
 
       - name: Upload app
+        if: runner.os == 'macOS'
         uses: actions/upload-artifact@v4
         with:
           name: EPIC
@@ -39,7 +47,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: squeak-logs
+          name: squeak-logs-${{ runner.os }}
           path: |
             ${{ env.SQUEAK_DIR }}/load-error.txt
             ${{ env.SQUEAK_DIR }}/test-results.txt
