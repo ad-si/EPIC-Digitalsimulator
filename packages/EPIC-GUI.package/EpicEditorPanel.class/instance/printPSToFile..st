@@ -1,14 +1,20 @@
 output
-printPSToFile: aFileStream 
-	"Ask the user for a filename and print this morph as postscript."
-	| rotateFlag psCanvasType psExtension |
+printPSToFile: aFileStream
+	"Print this morph as postscript to aFileStream."
+	| rotateFlag psCanvasType previousAuthorName postscript |
 	psCanvasType := PostscriptCanvas defaultCanvasType.
-	psExtension := psCanvasType defaultExtension.
 	rotateFlag := (UIManager default chooseFrom: {
 		'portrait (tall)' translated.
 		'landscape (wide)' translated.
 	} title: 'Choose orientation...' translated) = 2.
-	
-	((aFileStream) converter: TextConverter defaultSystemConverter)
-		nextPutAll: (psCanvasType morphAsPostscript: self rotated: rotateFlag);
+
+	"The PostScript header contains the author name,
+	for which Squeak would otherwise prompt the user."
+	previousAuthorName := Utilities authorNamePerSe.
+	previousAuthorName ifEmpty: [Utilities authorName: 'EPIC'].
+	postscript := [psCanvasType morphAsPostscript: self rotated: rotateFlag]
+		ensure: [Utilities authorName: previousAuthorName].
+
+	(aFileStream converter: TextConverter defaultSystemConverter)
+		nextPutAll: postscript;
 		close
